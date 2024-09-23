@@ -1,1 +1,17 @@
-<p>empleados works!</p>
+<h2>Empleados</h2>
+<form (ngSubmit)="agregarEmpleado()">
+    <input [(ngModel)]="nuevoEmpleado.codigo" name="codigo" placeholder="Código" required>
+    <input [(ngModel)]="nuevoEmpleado.nombre" name="nombre" placeholder="Nombre" required>
+    <input [(ngModel)]="nuevoEmpleado.apellido1" name="apellido1" placeholder="Apellido 1" required>
+    <input [(ngModel)]="nuevoEmpleado.apellido2" name="apellido2" placeholder="Apellido 2" required>
+    <input [(ngModel)]="nuevoEmpleado.codigo_departamento" name="codigo_departamento" placeholder="Código Departamento" required>
+    <button type="submit">Agregar Empleado</button>
+</form>
+
+<ul>
+    <li *ngFor="let empleado of empleados">
+        {{ empleado.nombre }} {{ empleado.apellido1 }} {{ empleado.apellido2 }}
+        <button (click)="eliminarEmpleado(empleado._id)">Eliminar</button>
+    </li>
+</ul>
+
