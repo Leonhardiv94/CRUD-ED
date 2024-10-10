@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "ES2022",
+      "module": "commonjs",     // Cambia a commonjs para Node.js
+      "outDir": "./dist/server", // Carpeta de salida para el servidor
+      "rootDir": "./",           // Directorio raíz donde se encuentra server.ts
+      "strict": true,
+      "esModuleInterop": true
+    },
+    "include": [
+      "server.ts"               // Incluye el archivo del servidor
+    ],
+    "exclude": [
+      "node_modules"            // Excluye node_modules
+    ]
+  }
+  

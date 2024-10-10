@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "./src", // Establece el directorio raíz
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -15,7 +16,7 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
@@ -29,5 +30,14 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": [
+    "src/**/*.ts",           // Incluye todos los archivos .ts en la carpeta src
+    "src/server.ts",             // Asegúrate de incluir el archivo del servidor
+    "src/**/*.html"          // Incluye archivos HTML, si es necesario
+  ],
+  "exclude": [
+    "node_modules",          // Excluye node_modules
+    "dist"                   // Excluye la carpeta de salida
+  ]
 }
