@@ -1,43 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { UsuarioService } from '/Users/leonh/Documents/CRUD 1/CRUD-ED/CRUD-ED/myStore/src/app/services/usuario.service'; // Asegúrate de tener este servicio creado e importado
-import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],  // Importa los módulos necesarios
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  standalone: true,
+  imports: [FormsModule]  // Asegúrate de importar FormsModule aquí
 })
-export class RegisterComponent implements OnInit {
-  registroForm!: FormGroup;
+export class RegisterComponent {
+  nombre: string = '';
+  cedula: string = '';
+  fechaNacimiento: string = '';
+  email: string = '';
+  contrasena: string = '';
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-    // Configura el formulario reactivo
-    this.registroForm = this.fb.group({
-      nombre: ['', Validators.required],
-      cedula: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-  }
+  register() {
+    const user = {
+      nombre: this.nombre,
+      cedula: this.cedula,
+      fechaNacimiento: this.fechaNacimiento,
+      email: this.email,
+      contrasena: this.contrasena
+    };
 
-  // Función que se llama al enviar el formulario
-  onSubmit() {
-    if (this.registroForm.valid) {
-      // Llama al servicio para enviar los datos al backend
-      this.usuarioService.registrarUsuario(this.registroForm.value)
-        .subscribe(response => {
-          console.log('Usuario registrado exitosamente', response);
-        }, error => {
-          console.error('Error al registrar usuario', error);
-        });
-    }
+    this.http.post('http://localhost:5000/api/register', user)
+      .subscribe(response => {
+        console.log(response);
+        alert('Usuario registrado con éxito');
+      }, error => {
+        console.error(error);
+        alert('Error al registrar el usuario');
+      });
   }
 }
-
